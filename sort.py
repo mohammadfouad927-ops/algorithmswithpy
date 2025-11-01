@@ -21,13 +21,48 @@ def bubble_sort(arr):
                 arr[j+1] = s
     return arr
 
+def merge_sort(arr):  # [6,3,4,1,5,2,7,0]
+    if len(arr) > 1:
+        s = 0
+        e = len(arr)-1
+        mid = (s+e) //2
+
+        larr = arr[s:mid+1]
+        rarr = arr[mid+1:e+1]
+
+        sortedlarr = merge_sort(larr)
+        sortedrarr = merge_sort(rarr)
+
+        return merge(sortedlarr,sortedrarr)
+    else:
+        return arr
+
+def merge(leftarray,rightarray):
+    # lpa is standfor left-pointer-array and rpa is standfor rigth-pointer-array
+    lpa = rpa = 0  
+    sortedarr =[]
+    while len(leftarray) != lpa or len(rightarray) != rpa:
+        if len(leftarray) == lpa:
+            sortedarr.append(rightarray[rpa])
+            rpa += 1
+        elif len(rightarray) == rpa:
+            sortedarr.append(leftarray[lpa])
+            lpa += 1
+        elif leftarray[lpa] < rightarray[rpa]:
+            sortedarr.append(leftarray[lpa])
+            lpa += 1
+        elif rightarray[rpa] < leftarray[lpa]:
+            sortedarr.append(rightarray[rpa])
+            rpa += 1
+    return sortedarr
+    
 
 print("SORTING WITH SELECTION SORT")
 arr = [7,2,5,4,1,6,0,3]
 print('The array before Sorting:')
 for i in range(0,len(arr)):
     if i != len(arr)-1:
-        print(i,end=',')
+        print(arr[i],end=', ')
     else:
         print(i)
 print('The array after sorting')
@@ -41,8 +76,22 @@ arr = [7,2,5,4,1,6,0,3]
 print('The array before Sorting:')
 for i in range(0,len(arr)):
     if i != len(arr)-1:
-        print(i,end=',')
+        print(arr[i],end=', ')
     else:
         print(i)
 print('The array after sorting')
 print(bubble_sort(arr))
+print("----------------------------------------")
+
+#-----------------------------------------------------------
+
+print("SORTING WITH MERGE SORT")
+arr = [6,3,4,1,5,2,7,0]
+print('The array before Sorting:')
+for i in range(0,len(arr)):
+    if i != len(arr)-1:
+        print(arr[i],end=', ')
+    else:
+        print(i)
+print('The array after sorting')
+print(merge_sort(arr))
